@@ -1,5 +1,12 @@
 # Changelogs
 
+## 2026-04-19 — Metadata + spam prevention
+
+### Added
+- **Rich OG/Twitter metadata:** `layout.tsx` now exports full `Metadata` with title template, description, keywords, `openGraph`, `twitter` card, `robots`, and `metadataBase` (driven by `NEXT_PUBLIC_APP_URL` env var)
+- **Cookie-based rate limiting:** Backend uses `Microsoft.AspNetCore.RateLimiting` sliding window (20 req/min per `client_id` cookie). Cookie is `HttpOnly`, `SameSite=None`, `Secure`, 30-day expiry. Returns `429` when exceeded.
+- **`credentials: 'include'`** added to all frontend fetch calls so the `client_id` cookie flows cross-origin.
+
 ## 2026-04-19 — Feature additions
 
 ### Added

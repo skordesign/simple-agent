@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using SimpleAgent.Api.Models;
 using SimpleAgent.Api.Services;
 using System.Text;
@@ -37,6 +38,7 @@ public class ChatController : ControllerBase
     /// Streams a chat response using Server-Sent Events.
     /// </summary>
     [HttpPost("stream")]
+    [EnableRateLimiting("chat-limit")]
     public async Task StreamMessage(CancellationToken cancellationToken)
     {
         var sessionId = GetSessionId();

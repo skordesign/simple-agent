@@ -12,9 +12,40 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://simple-agent.fly.dev";
+
 export const metadata: Metadata = {
-  title: "Simple Agent",
-  description: "AI-powered assistant that answers questions and analyzes files",
+  metadataBase: new URL(appUrl),
+  title: {
+    default: "Simple Agent — AI Chat Assistant",
+    template: "%s | Simple Agent",
+  },
+  description:
+    "A portfolio AI chat assistant powered by GPT-4o. Ask questions, upload files, and get intelligent answers in real time.",
+  keywords: ["AI", "chat", "assistant", "GPT-4o", "portfolio", "file analysis"],
+  authors: [{ name: "Phat Huynh" }],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: appUrl,
+    siteName: "Simple Agent",
+    title: "Simple Agent — AI Chat Assistant",
+    description:
+      "A portfolio AI chat assistant powered by GPT-4o. Ask questions, upload files, and get intelligent answers in real time.",
+  },
+  twitter: {
+    card: "summary",
+    title: "Simple Agent — AI Chat Assistant",
+    description:
+      "A portfolio AI chat assistant powered by GPT-4o. Ask questions, upload files, and get intelligent answers in real time.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

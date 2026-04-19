@@ -17,6 +17,7 @@ export async function* streamChat(
     headers: { "X-Session-Id": sessionId },
     body: form,
     signal,
+    credentials: "include",
   });
 
   if (!response.ok) {
@@ -62,5 +63,6 @@ export async function clearSession(sessionId: string): Promise<void> {
   await fetch(`${API_BASE}/api/chat/session`, {
     method: "DELETE",
     headers: { "X-Session-Id": sessionId },
+    credentials: "include",
   });
 }
