@@ -15,7 +15,7 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 # Non-root user for security
-RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
+RUN groupadd --system appgroup && useradd --system --gid appgroup appuser
 USER appuser
 
 ENV ASPNETCORE_URLS=http://+:8080
