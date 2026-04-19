@@ -12,16 +12,19 @@ builder.Services.AddSingleton<IConversationStore, ConversationStore>();
 builder.Services.AddScoped<IChatService, ChatService>();
 builder.Services.AddControllers();
 
-// CORS — allow frontend dev server
+// CORS — origins from env var (comma-separated) + localhost defaults
+var corsOrigins = (builder.Configuration["CORS_ORIGINS"] ?? "")
+    .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+    .Concat(["http://localhost:3000", "https://localhost:3000", "http://localhost:3001"])
+    .Distinct()
+    .ToArray();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Frontend", policy =>
     {
         policy
-            .WithOrigins(
-                "http://localhost:3000",
-                "https://localhost:3000",
-                "http://localhost:3001")
+            .WithOrigins(corsOrigins)
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
