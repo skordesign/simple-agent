@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-border: var(--border-color);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --animate-orb-pulse: orb-pulse 4s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.4s ease-out forwards;
+  --animate-stream-cursor: stream-cursor 0.8s step-end infinite;
+}
+
+:root {
+  --background: #f0f2fc;
+  --foreground: #111827;
+  --surface: #ffffff;
+  --border-color: #e5e7ef;
+  --accent: #4f6ef7;
+  --accent-light: #7b93f9;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  min-height: 100dvh;
+}
+
+@keyframes orb-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+    filter: blur(0px);
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+    filter: blur(2px);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes stream-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Scrollbar styling */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 9999px;
+}
+
+/* Prose overrides for AI messages */
+.prose-ai p { margin: 0.5em 0; }
+.prose-ai p:first-child { margin-top: 0; }
+.prose-ai p:last-child { margin-bottom: 0; }
+.prose-ai pre {
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+  font-size: 0.85em;
+}
+.prose-ai code:not(pre code) {
+  background: #eef0f8;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.875em;
+}
+.prose-ai ul { list-style: disc; padding-left: 1.25em; }
+.prose-ai ol { list-style: decimal; padding-left: 1.25em; }
+.prose-ai li { margin: 0.25em 0; }
+.prose-ai strong { font-weight: 600; }
+.prose-ai h1, .prose-ai h2, .prose-ai h3 { font-weight: 600; margin: 0.75em 0 0.25em; }
