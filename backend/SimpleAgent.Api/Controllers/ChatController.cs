@@ -3,6 +3,8 @@ using SimpleAgent.Api.Models;
 using SimpleAgent.Api.Services;
 using System.Text;
 using System.Text.Json;
+using UglyToad.PdfPig;
+using UglyToad.PdfPig.Content;
 
 namespace SimpleAgent.Api.Controllers;
 
@@ -16,6 +18,7 @@ public class ChatController : ControllerBase
     {
         "text/plain", "text/markdown", "text/csv",
         "application/json", "application/xml",
+        "application/pdf",
         "image/jpeg", "image/png", "image/gif", "image/webp"
     };
 
@@ -141,7 +144,18 @@ public class ChatController : ControllerBase
             var bytes = ms.ToArray();
 
             string data;
-            if (contentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase))
+            string effectiveContentType = contentType;
+
+            if (contentType.Equals("application/pdf", StringComparison.OrdinalIgnoreCase))
+            {
+                var sb = new StringBuilder();
+                using var doc = PdfDocument.Open(bytes);
+                foreach (var page in doc.GetPages())
+                    sb.AppendLine(page.Text);
+                data = sb.ToString();
+                effectiveContentType = "text/plain";
+            }
+            else if (contentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase))
             {
                 data = Convert.ToBase64String(bytes);
             }
@@ -153,7 +167,7 @@ public class ChatController : ControllerBase
             result.Add(new FileAttachment
             {
                 FileName = file.FileName,
-                ContentType = contentType,
+                ContentType = effectiveContentType,
                 Data = data
             });
         }

@@ -1,5 +1,12 @@
 # Changelogs
 
+## 2026-04-19 — Feature additions
+
+### Added
+- **PDF support:** Upload `.pdf` files — backend extracts text via `PdfPig` and sends it as plain content to the LLM; frontend allows `.pdf` in the file picker and MIME filter
+- **Copy button on code blocks:** Hovering a fenced code block reveals a Copy/Copied! button (top-right overlay) via a custom `pre` renderer in `react-markdown`
+- **Configurable greeting name:** `NEXT_PUBLIC_GREETING_NAME` env var controls the name in the greeting; falls back to `"there"`
+
 ## 2026-04-19 — Initial build
 
 ### Added
