@@ -1,4 +1,4 @@
-app = "simple-agent-api"
+app = "simple-agent"
 primary_region = "sin"
 
 [build]
